@@ -1,8 +1,8 @@
 
 /*  ========== H03 - Personal Queue Implementation ============
  *
- *   Student: UPDATE
- *   Semester: UPDATE
+ *   Student: Chengyi Li
+ *   Semester: Spring 2023
  *
  * A simple queue implementation to hold int values.
  *
@@ -33,8 +33,13 @@ typedef struct queue queue_t;
  */
 queue_t *create_queue(unsigned int _capacity)
 {
-    queue_t *myQueue = NULL;
-    // TODO: Implement me!
+    queue_t* myQueue = (queue_t*) malloc(sizeof(queue_t)));
+    myQueue->back =0;
+    myQueue->front =0; 
+    myQueue->size =0;
+    myQueue->back =0;
+    myQueue->capacity =0;
+    myQueue->data = (int *)malloc(sizeof(int) * _capacity);
 
     return myQueue;
 }
@@ -45,9 +50,11 @@ queue_t *create_queue(unsigned int _capacity)
  **/
 int queue_empty(queue_t *q)
 {
-    // TODO: Implement me!
+    if(q->size = 0){
+        return 1;
+    }
+    return 0;
 
-    return NULL;
 }
 
 /** Check if the queue is Full
@@ -56,9 +63,10 @@ int queue_empty(queue_t *q)
  **/
 int queue_full(queue_t *q)
 {
-    // TODO: Implement me!
-
-    return NULL;
+    if(q->size < q->capacity){
+        return 0;
+    }
+    return 1;
 }
 
 /** Enqueue a new item
@@ -67,9 +75,14 @@ int queue_full(queue_t *q)
  **/
 int queue_enqueue(queue_t *q, int item)
 {
-    // TODO: Implement me!
-
-    return NULL;
+    if(queue_full(q) == 0){
+        q->data[q->back] = item;
+        q->back = ((q->back + 1) % q->capacity);
+        q->size = q->size + 1;
+        return 0;
+    }else{
+        return -1;
+    }
 }
 
 /** Dequeue an item
@@ -83,9 +96,17 @@ int queue_enqueue(queue_t *q, int item)
  */
 int queue_dequeue(queue_t *q)
 {
-    // TODO: Implement me!
-
-    return NULL; // Note: This line is a filler so the code compiles.
+    int value;
+    if(queue_empty(q) == 0){
+        value = q->data[q->front];
+        q->data[q->front] = 0;
+        q->front = ((q->front + 1) % q->capacity);
+        q->size = q->size - 1;
+        return value;
+    }else{
+        fputs("no items to dequeue!\n", stderr);
+        return EXIT_FAILURE;
+    }
 }
 
 /** Queries the current size of a queue
@@ -94,9 +115,12 @@ int queue_dequeue(queue_t *q)
  **/
 unsigned int queue_size(queue_t *q)
 {
-    // TODO: Implement me!
-
-    return NULL;
+      if (q != NULL){
+        return q->size;
+        } else{
+            printf("Warning: no items to dequeue!");
+        return -1;
+        }
 }
 
 /** Removes a queue and all of its elements from memory.
@@ -105,7 +129,7 @@ unsigned int queue_size(queue_t *q)
  **/
 void free_queue(queue_t *q)
 {
-    // TODO: Implement me!
+    free(q);
 }
 
 #endif

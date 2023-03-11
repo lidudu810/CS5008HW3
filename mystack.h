@@ -46,8 +46,10 @@ typedef struct stack
 stack_t *create_stack(unsigned int capacity)
 {
     // Modify the body of this function as needed.
-    stack_t *myStack = NULL;
-    // TODO: Implement me!!
+     stack_t *myStack = (stack_t*) malloc(sizeof(stack_t));
+    myStack->count = 0;
+    myStack->capacity = capacity;
+    myStack->head = NULL;
 
     return myStack;
 }
@@ -59,9 +61,12 @@ stack_t *create_stack(unsigned int capacity)
 */
 int stack_empty(stack_t *s)
 {
-    // TODO: Implement me!!
+     if(s->count == 0){
+        return 1;
+     }else{
+         return 0;
+     }
 
-    return NULL;
 }
 
 /** Check if the stack is full
@@ -70,9 +75,12 @@ int stack_empty(stack_t *s)
 **/
 int stack_full(stack_t *s)
 {
-    // TODO: Implement me!
+     if(s->count == s->capacity){
+        return 1;
+    }else{
+        return 0;
+    }
 
-    return NULL;
 }
 
 /** Enqueue a new item
@@ -82,9 +90,17 @@ int stack_full(stack_t *s)
 **/
 int stack_enqueue(stack_t *s, int item)
 {
-    // TODO: Implement me!
-
-    return NULL; 
+     if(stack_full(s) == 0){
+        node_t* n_item = (node_t*) malloc(sizeof(node_t));
+        n_item->data = item;
+        n_item->next = s->head;
+        s->head = n_item;
+        s->count = s->count + 1;
+        return 0;
+    }else if(stack_full(s) == 1){
+        printf("Error: the stack is full");
+    }
+    return -1; 
 }
 
 /** Dequeue an item
@@ -98,9 +114,16 @@ int stack_enqueue(stack_t *s, int item)
 **/
 int stack_dequeue(stack_t *s)
 {
-    // TODO: Implement me!
-
-    return NULL; 
+     if(stack_empty(s) == 0){
+        int value;
+        value = s->head->data;
+        s->head = s->head->next;
+        if (s->count >= 1){ s->count = s->count - 1;}
+        return value;
+    }else{
+        fputs("no items to dequeue!\n", stderr);
+        return EXIT_FAILURE;
+    }
 }
 
 
@@ -110,9 +133,13 @@ int stack_dequeue(stack_t *s)
 */
 unsigned int stack_size(stack_t *s)
 {
-    // TODO: Implement me!
-
-    return NULL;
+     if(s != NULL){
+        return s->count;
+    }
+    else{
+        fputs("The stack hasn't been properly recreated.\n", stderr);
+        return -1;
+    }
 }
 
 
@@ -122,7 +149,7 @@ unsigned int stack_size(stack_t *s)
  **/
 void free_stack(stack_t *s)
 {
-    // TODO: Implement me!
+    free(s);
 }
 
 #endif

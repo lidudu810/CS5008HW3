@@ -39,7 +39,7 @@ queue_t *create_queue(unsigned int _capacity)
     myQueue->front =0; 
     myQueue->size =0;
     myQueue->back =0;
-    myQueue->capacity =0;
+    myQueue->capacity = _capacity;
     myQueue->data = (int *)malloc(sizeof(int) * _capacity);
 
     return myQueue;
@@ -51,7 +51,7 @@ queue_t *create_queue(unsigned int _capacity)
  **/
 int queue_empty(queue_t *q)
 {
-    if(q->size = 0){
+    if(q->size == 0){
         return 1;
     }
     return 0;

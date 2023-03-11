@@ -82,7 +82,6 @@ int unitTest3(int status)
     {
         queue_dequeue(testq);
     }
-
     if (0 == queue_size(testq))
     {
         passed = 1;
@@ -158,15 +157,48 @@ int unitTest5(int status)
     return passed;
 }
 
+//test queue size
+int unitTest6(int status){
+    int passed = 0;
+    queue_t *test_s = create_queue(10);
+    queue_enqueue(test_s, 6);
+    queue_enqueue(test_s, 40);
+    if (2 == queue_size(test_s))
+    {
+        passed = 1;
+    }
+
+    free_queue(test_s);
+
+    return passed; 
+}
+
+//test when capacity is full, to see if the enqueue will return to 1
+int unitTest7(int status){
+    int passed = 0;
+    queue_t *test_s = create_queue(1);
+    queue_enqueue(test_s, 6);
+    queue_enqueue(test_s, 40); 
+    if(queue_full(test_s) == 1 && queue_size(test_s) == 1)
+    {
+        passed = 1;
+    }
+
+    free_queue(test_s);
+
+    return passed; 
+}
 // TODO: Add more tests here
 // add your own, and uncomment the provided tests as 
 // things are implemented
 int (*unitTests[])(int) = {
-    // unitTest1,
-    // unitTest2,
-    // unitTest3,
-    // unitTest4,
-    // unitTest5,
+     unitTest1,
+     unitTest2,
+     unitTest3,
+     unitTest4,
+     unitTest5,
+     unitTest6,
+     unitTest7,
     NULL};
 
 // ====================================================

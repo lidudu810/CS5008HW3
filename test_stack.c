@@ -1,7 +1,7 @@
 /*  ========== H03 - Personal Queue Implementation ============
  *
- *   Student: UPDATE
- *   Semester: UPDATE
+ *   Student: Chengyi Li
+ *   Semester: Spring 2023
  *
  * A simple queue unit-tst implementation
  *
@@ -152,15 +152,49 @@ int unitTest5(int status)
     return passed;
 }
 
+//test queue size
+int unitTest6(int status){
+    int passed = 0;
+    stack_t *test_s = create_stack(10);
+    stack_enqueue(test_s, 6);
+    stack_enqueue(test_s, 40);
+    if (2 == test_s->count)
+    {
+        passed = 1;
+    }
+
+    free_stack(test_s);
+
+    return passed; 
+}
+
+//test when capacity is full, to see if the enqueue will return to 1
+int unitTest7(int status){
+    int passed = 0;
+    stack_t *test_s = create_stack(1);
+    stack_enqueue(test_s, 6);
+    stack_enqueue(test_s, 40); 
+    if(stack_full(test_s) == 1 && stack_size(test_s) == 1)
+    {
+        passed = 1;
+    }
+
+    free_stack(test_s);
+
+    return passed; 
+}
+
 // TODO: Add more tests here
 // add your own, and uncomment the provided tests as
 // things are implemented
 int (*unitTests[])(int) = {
-//    unitTest1,
-//    unitTest2,
-//    unitTest3,
-//    unitTest4,
-//    unitTest5,
+    unitTest1,
+    unitTest2,
+    unitTest3,
+    unitTest4,
+    unitTest5,
+    unitTest6, 
+    unitTest7, 
     NULL};
 
 // ====================================================

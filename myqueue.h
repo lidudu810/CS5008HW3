@@ -11,6 +11,7 @@
 #define MYQUEUE_H
 
 #include <stdlib.h> // for malloc/free
+#include <stdio.h>
 
 // The main data structure for the queue
 struct queue
@@ -33,7 +34,7 @@ typedef struct queue queue_t;
  */
 queue_t *create_queue(unsigned int _capacity)
 {
-    queue_t* myQueue = (queue_t*) malloc(sizeof(queue_t)));
+    queue_t* myQueue = (queue_t*) malloc(sizeof(queue_t));
     myQueue->back =0;
     myQueue->front =0; 
     myQueue->size =0;
